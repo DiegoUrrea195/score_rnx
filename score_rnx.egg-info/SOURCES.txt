@@ -1,0 +1,11 @@
+setup.py
+score_rnx/Coranking.py
+score_rnx/NXTrusion.py
+score_rnx/Pairwisedistances.py
+score_rnx/ScoreRnx.py
+score_rnx/__init__.py
+score_rnx.egg-info/PKG-INFO
+score_rnx.egg-info/SOURCES.txt
+score_rnx.egg-info/dependency_links.txt
+score_rnx.egg-info/not-zip-safe
+score_rnx.egg-info/top_level.txt
