@@ -1,6 +1,9 @@
 from numpy import ndarray
 import numpy as np
+import matplotlib.pyplot as plt
+import random
 from timeit import default_timer as timer
+
 class CorankingException(Exception):
     def __init__(self, message, *args):
         super(CorankingException, self).__init__(message, *args)

@@ -1,11 +1,12 @@
 import numpy as np
 
+
 class PairwisedistancesException(Exception):
     def __init__(self, message, *args):
         super(PairwisedistancesException, self).__init__(message, *args)
 
 
-class Pairwisedistances:
+class PairwiseDistances:
     def __init__(self):
         pass
 
