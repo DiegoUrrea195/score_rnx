@@ -5,9 +5,6 @@ obtenido por cualquier tipo de algoritmo de reducción de dimensión RD, score_r
 
 - [Instalación](#instalación)
 - [Instrucciones de uso](#instrucciones-de-uso)
-- [Créditos](#créditos)
-- [Otras referencias sobre Markdown](#otras-referencias-sobre-markdown)
-
 
 ### Instalación
 ```bash
