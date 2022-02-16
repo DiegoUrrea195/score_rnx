@@ -18,8 +18,13 @@ class Coranking:
             if HD.size != LD.size:
                 raise CorankingException("matrices hdpd and ldpd do not have the same sizes")
 
+
             nbr = HD.shape[0]
             sss = HD.shape[1]
+
+
+
+
 
             ndx1 = np.transpose(np.argsort(HD + 1, axis=1))
             ndx2 = np.transpose(np.argsort(LD + 1, axis=1))

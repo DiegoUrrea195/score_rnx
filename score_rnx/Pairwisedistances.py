@@ -27,4 +27,4 @@ class PairwiseDistances:
 
             return result
         except Exception as e:
-            raise  Pairwisedistances(e)
+            raise  PairwiseDistances(e)

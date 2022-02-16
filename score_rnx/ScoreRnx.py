@@ -5,7 +5,8 @@ from RDMethod import RDMethod
 from numpy import ndarray
 import numpy as np
 from typing import Any
-
+import matplotlib.pyplot as plt
+import random
 
 class ScoreRnxException(Exception):
     def __init__(self, message, *args):
@@ -13,19 +14,27 @@ class ScoreRnxException(Exception):
 
 
 class ScoreRnx:
-    def __init__(self) -> None:
-        self.__high_data = None
+    def __init__(self, high_data=None, methods=None) -> None:
+        self.__high_data = high_data
         self.__score = 0
         self.__curve = Any
-        self.methods_objects = []
+        if type(methods) == list:
+            self.methods_objects = methods
+        else:
+            if type(methods) == ndarray:
+                self.methods_objects = []
+                self.methods_objects.append(RDMethod("METHOD", methods))
+            else:
+                self.methods_objects = []
 
         self.pairwise_distances = PairwiseDistances()
         self.coranking = Coranking()
         self.nx_trusion = NXTrusion()
 
     def run(self):
+        print(self.methods_objects)
         if len(self.methods_objects) > 0:
-            if (self.__high_data):
+            if (self.__high_data.any()):
                 for i in range(len(self.methods_objects)):
                     if not self.methods_objects[i].state:
                         try:
@@ -33,17 +42,17 @@ class ScoreRnx:
                             self.__score = Ravg
                             self.__curve = R_NX
                             self.methods_objects[i].score = self.__score
-                            self.methods_objects[i].rnx = self.__rnx
+                            self.methods_objects[i].rnx = self.__curve
                             self.methods_objects[i].state = True
                         except Exception as e:
-                            print(e)
+                            raise e
                                 # lanzar una excepcion
                     else:
                         print(f"omitiendo nodo: {self.methods_objects[i].name}")
             else:
-                ScoreRnxException("No haz ingresado los datos en alta dimensión, use ScoreRnx.add_high_data(data: ndarray)")
+                raise ScoreRnxException("No haz ingresado los datos en alta dimensión, use ScoreRnx.add_high_data(data: ndarray)")
         else:
-            ScoreRnxException("No haz agregado métodos al stack, use RDMethod(name, data: ndarray)")
+            raise ScoreRnxException("No haz agregado métodos al stack, use RDMethod(name, data: ndarray)")
 
     def get_rnx(self):
         return self.methods_objects
@@ -89,14 +98,14 @@ class ScoreRnx:
             print(e)
             raise e
 
-    def add_method(self, method: RDMethod):
-        if isinstance(method, RDMethod):
-            if len(self.methods_objects) == 6:
-                ScoreRnxException("Solo se pueden agregar 6 métodos RD al stack")
-                return
-            self.methods_objects.append(method)
-        else:
-            ScoreRnxException("El método ingresado debe ser tipo RDMethod")
+    def add_method(self, name:str , data:ndarray):
+
+        if len(self.methods_objects) == 6:
+            ScoreRnxException("Solo se pueden agregar 6 métodos RD al stack")
+            print("Solo se pueden agregar 6 métodos RD al stack")
+            return
+        self.methods_objects.append(RDMethod(name, data))
+
 
     def add_high_data(self, new_high_data: ndarray):
         self.__high_data = new_high_data
